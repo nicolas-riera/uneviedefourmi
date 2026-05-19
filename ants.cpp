@@ -55,28 +55,30 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
     this->roomLinking = roomLinking;
     this->roomSizes = roomSizes;
 
+    this->rooms.reserve(roomSizes.size());
+
     // Room creation
     for (size_t i = 0; i < roomSizes.size(); i++)
     {
+        Room* room;
         if (i == 0) {
             // V room
-            Room* V = new Room(roomSizes[i]);
+            room = new Room(roomSizes[i]);
             // Ants creation
+            room->ants.reserve(antAmount);
             for (size_t j = 0; j < antAmount; j++)
             {
                 Ant* ant = new Ant();
-                V->addAnt(ant);
+                room->addAnt(ant);
             }
-            this->rooms.push_back(V);
         } else if (i == roomSizes.size()-1) {
             // D room
-            Room* D = new Room(roomSizes[i]);
-            this->rooms.push_back(D);
+            room = new Room(roomSizes[i]);
         } else {
-            // rooms
-            Room* room = new Room(roomSizes[i]);
-            this->rooms.push_back(room);
+            // regular rooms
+            room = new Room(roomSizes[i]);
         }
+        this->rooms.push_back(room);
     }
 
     // Room adjacencies
