@@ -30,8 +30,17 @@ void Room::addAnt(Ant* ant){
 
 Ant Room::extractAnt(){
     // To complete
-    Ant ant;
-    return ant;
+    //check if room is empty for safety
+    if (ants.empty())
+    {
+        throw std::out_of_range("Error : empty room");
+    }
+    //find last element of vector 
+    Ant* extractedAnt {ants.back()};
+    //delete last element
+    ants.pop_back();
+    //return the value of the extracted ant
+    return *extractedAnt;
 };
 
 Room::~Room(){};
