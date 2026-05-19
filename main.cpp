@@ -1,8 +1,11 @@
+#include <iostream>
 #include "ants.hpp"
 
 int main(){
 
     // Anthill 0
+
+    std::cout << std::endl << "---- Anthill 0 ----" << std::endl << std::endl;
 
     Anthill* anthill0 = new Anthill();
 
@@ -27,6 +30,8 @@ int main(){
 
     // Anthill 1
 
+    std::cout << std::endl << "---- Anthill 1 ----" << std::endl << std::endl;
+
     Anthill* anthill1 = new Anthill();
 
     std::vector<std::vector<short>> roomLinking1 = {
@@ -48,6 +53,8 @@ int main(){
 
     // Anthill 2
 
+    std::cout << std::endl << "---- Anthill 2 ----" << std::endl << std::endl;
+
     Anthill* anthill2 = new Anthill();
 
     std::vector<std::vector<short>> roomLinking2 = {
@@ -68,6 +75,8 @@ int main(){
     delete anthill2;
 
     // Anthill 3
+
+    std::cout << std::endl << "---- Anthill 3 ----" << std::endl << std::endl;
 
     Anthill* anthill3 = new Anthill();
 
@@ -91,6 +100,8 @@ int main(){
     delete anthill3;
 
     // Anthill 4
+
+    std::cout << std::endl << "---- Anthill 4 ----" << std::endl << std::endl;
 
     Anthill* anthill4 = new Anthill();
 
@@ -116,6 +127,8 @@ int main(){
     delete anthill4;
 
     // Anthill 5
+
+    std::cout << std::endl << "---- Anthill 5 ----" << std::endl << std::endl;
 
     Anthill* anthill5 = new Anthill();
 

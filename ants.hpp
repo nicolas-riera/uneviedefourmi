@@ -32,8 +32,9 @@ class Anthill
 {
 private:
     short antAmount;
+    std::vector<short> roomSizes;
     std::vector<std::vector<short>> roomLinking;
-    std::vector<Room> rooms;
+    std::vector<Room*> rooms;
     int stepCounter;
 
 public:
@@ -41,4 +42,5 @@ public:
     ~Anthill();
     void initAnthill(std::vector<std::vector<short>> roomLinking, std::vector<short> roomSizes, short antAmount);
     void run();
+    void printDebug();
 };
