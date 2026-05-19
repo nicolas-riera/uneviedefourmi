@@ -13,6 +13,7 @@ public:
 
 class Room
 {
+    friend class Anthill;
 private:
     short size;
     std::vector<Ant*> ants;
