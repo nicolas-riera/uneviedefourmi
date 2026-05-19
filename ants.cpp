@@ -34,11 +34,19 @@ Ant Room::extractAnt(){
     return ant;
 };
 
-Room::~Room(){};
+Room::~Room(){
+    for (Ant* ant : this->ants) {
+        delete ant;
+    }
+};
 
 Anthill::Anthill(){};
 
-Anthill::~Anthill(){};
+Anthill::~Anthill(){
+    for (Room* room : this->rooms) {
+        delete room; 
+    }
+};
 
 void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vector<short> roomSizes, short antAmount){
 
