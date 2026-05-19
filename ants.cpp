@@ -71,6 +71,20 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
         }
     }
 
+    // Room adjacencies
+    for (size_t i = 0; i < this->rooms.size(); i++)
+    {
+        for (size_t j = 0; j < this->roomLinking[i].size(); j++)
+        {
+            if (this->roomLinking[i][j] == 1)
+            {
+                this->rooms[i]->addToNexts(this->rooms[j]);
+                
+                this->rooms[j]->addToPrevs(this->rooms[i]);
+            }
+        }
+    }
+    
     this->printDebug();
     
 };
@@ -82,18 +96,56 @@ void Anthill::run(){
 // Debugging only
 void Anthill::printDebug() {
     for (size_t i = 0; i < this->rooms.size(); i++) {
-    std::cout << "Index [" << i << "] : "
-              << "Adress: " << this->rooms[i] 
-              << " | Max Size: " << this->roomSizes[i]
-              << " | Ants: ";
-    
-    if (i == 0) {
-        for (short j = 0; j < this->antAmount; j++) {
-            std::cout << j << " ";
+        
+        std::string roomName;
+        if (i == 0) roomName = "V";
+        else if (i == this->rooms.size() - 1) roomName = "D";
+        else roomName = "S" + std::to_string(i);
+
+        std::cout << "Index [" << i << "] (" << roomName << ") : "
+                  << "Max Size: " << this->roomSizes[i]
+                  << " | Ants: ";
+        
+        if (i == 0) {
+            for (short j = 0; j < this->antAmount; j++) {
+                std::cout << j << " ";
+            }
+        } else {
+            std::cout << "None";
         }
-    } else {
-        std::cout << "Aucune";
+
+        std::cout << " | Prevs: ";
+        if (this->rooms[i]->prevs.empty()) {
+            std::cout << "None";
+        } else {
+            for (size_t p = 0; p < this->rooms[i]->prevs.size(); p++) {
+                for (size_t k = 0; k < this->rooms.size(); k++) {
+                    if (this->rooms[i]->prevs[p] == this->rooms[k]) {
+                        if (k == 0) std::cout << "V ";
+                        else if (k == this->rooms.size() - 1) std::cout << "D ";
+                        else std::cout << "S" << k << " ";
+                        break;
+                    }
+                }
+            }
+        }
+
+        std::cout << " | Nexts: ";
+        if (this->rooms[i]->nexts.empty()) {
+            std::cout << "None";
+        } else {
+            for (size_t n = 0; n < this->rooms[i]->nexts.size(); n++) {
+                for (size_t k = 0; k < this->rooms.size(); k++) {
+                    if (this->rooms[i]->nexts[n] == this->rooms[k]) {
+                        if (k == 0) std::cout << "V ";
+                        else if (k == this->rooms.size() - 1) std::cout << "D ";
+                        else std::cout << "S" << k << " ";
+                        break;
+                    }
+                }
+            }
+        }
+
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
-    }
-};
+}
