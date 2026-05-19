@@ -15,16 +15,17 @@ class Room
 {
 private:
     short size;
-    short antCount;
-    Ant* ants;
-    std::vector<Room*> adjacencies;
+    std::vector<Ant*> ants;
+    std::vector<Room*> prevs;
+    std::vector<Room*> nexts;
 
 public:
     Room(short size);
     ~Room();
-    void addAdjacency(Room* room);
-    bool addAnt(Ant ant);
-    Ant moveAnt();
+    void addToNexts(Room* room);
+    void addToPrevs(Room* room);
+    void addAnt(Ant* ant);
+    Ant extractAnt();
 };
 
 class Anthill
