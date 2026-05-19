@@ -42,7 +42,7 @@ Anthill::Anthill(){};
 
 Anthill::~Anthill(){};
 
-void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, short antAmount){
+void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vector<short> roomSizes, short antAmount){
     // To complete
 };
 

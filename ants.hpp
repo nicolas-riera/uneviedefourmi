@@ -38,6 +38,6 @@ private:
 public:
     Anthill();
     ~Anthill();
-    void initAnthill(std::vector<std::vector<short>> roomLinking, short antAmount);
+    void initAnthill(std::vector<std::vector<short>> roomLinking, std::vector<short> roomSizes, short antAmount);
     void run();
 };
