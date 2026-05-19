@@ -11,32 +11,29 @@ Ant::~Ant(){};
 
 Room::Room(short size){
     this->size = size;
-    this->antCount = 0;
-    this->ants = new Ant[size];
+    std::vector<Ant*> newAnts;
+    this->ants = newAnts;
 };
 
-void Room::addAdjacency(Room* room){
-    this->adjacencies.push_back(room);
+void Room::addToNexts(Room* room){
+    this->nexts.push_back(room);
 };
 
-bool Room::addAnt(Ant ant){
-    if (this->antCount < this->size){
-        this->ants[this->antCount] = ant;
-        this->antCount++;
-        return true;
-    }
-    return false;
+void Room::addToPrevs(Room* room){
+    this->prevs.push_back(room);
 };
 
-Ant Room::moveAnt(){
+void Room::addAnt(Ant* ant){
+    this->ants.push_back(ant);
+};
+
+Ant Room::extractAnt(){
     // To complete
     Ant ant;
     return ant;
 };
 
-Room::~Room(){
-    delete[] ants;
-};
+Room::~Room(){};
 
 Anthill::Anthill(){};
 
