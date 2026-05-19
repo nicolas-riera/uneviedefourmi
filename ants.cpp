@@ -10,6 +10,10 @@ Ant::Ant(){
 
 Ant::~Ant(){};
 
+short Ant::getAntId(){
+    return this->antId;
+};
+
 Room::Room(short size){
     this->size = size;
     std::vector<Ant*> newAnts;
@@ -28,7 +32,7 @@ void Room::addAnt(Ant* ant){
     this->ants.push_back(ant);
 };
 
-Ant Room::extractAnt(){
+Ant* Room::extractAnt(){
     // To complete
     //check if room is empty for safety
     if (ants.empty())
@@ -40,7 +44,7 @@ Ant Room::extractAnt(){
     //delete last element
     ants.pop_back();
     //return the value of the extracted ant
-    return *extractedAnt;
+    return extractedAnt;
 };
 
 Room::~Room(){
@@ -109,7 +113,23 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
 };
 
 void Anthill::run(){
-    // To complete
+
+    for(auto it = this->rooms.rbegin(); it != this->rooms.rend() ; ++it){
+        Room* room = *it;
+        if (!room->ants.empty()){
+            for (auto antIt = room->ants.rbegin(); antIt != room->ants.rend(); ++antIt){
+                Ant* lastAnt = *antIt;
+                if (lastAnt){
+                    std::cout << lastAnt->getAntId() << std::endl;
+                    // Room* targetRoom = lastAnt->findPath();
+                    // if(targetRoom) {
+                    //      Ant* travellingAnt = room->extractAnt();
+                    //      targetRoom->addToAnts(travellingAnt);
+                    // }
+                }
+            }
+        }
+    }
 };
 
 // Debugging only

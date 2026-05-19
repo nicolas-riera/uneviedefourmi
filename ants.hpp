@@ -9,6 +9,7 @@ private:
 public:
     Ant();
     ~Ant();
+    short getAntId();
 };
 
 class Room
@@ -26,7 +27,7 @@ public:
     void addToNexts(Room* room);
     void addToPrevs(Room* room);
     void addAnt(Ant* ant);
-    Ant extractAnt();
+    Ant* extractAnt();
 };
 
 class Anthill
