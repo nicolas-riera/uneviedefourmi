@@ -16,12 +16,8 @@ Room::Room(short size){
     this->ants = newAnts;
 };
 
-void Room::addToNexts(Room* room){
-    this->nexts.push_back(room);
-};
-
-void Room::addToPrevs(Room* room){
-    this->prevs.push_back(room);
+void Room::addToAdjacencies(Room* room){
+    this->adjacencies.push_back(room);
 };
 
 void Room::addAnt(Ant* ant){
@@ -97,9 +93,9 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
         {
             if (this->roomLinking[i][j] == 1)
             {
-                this->rooms[i]->addToNexts(this->rooms[j]);
+                this->rooms[i]->addToAdjacencies(this->rooms[j]);
                 
-                this->rooms[j]->addToPrevs(this->rooms[i]);
+                this->rooms[j]->addToAdjacencies(this->rooms[i]);
             }
         }
     }
@@ -133,29 +129,13 @@ void Anthill::printDebug() {
             std::cout << "None";
         }
 
-        std::cout << " | Prevs: ";
-        if (this->rooms[i]->prevs.empty()) {
+        std::cout << " | Adjacencies: ";
+        if (this->rooms[i]->adjacencies.empty()) {
             std::cout << "None";
         } else {
-            for (size_t p = 0; p < this->rooms[i]->prevs.size(); p++) {
+            for (size_t n = 0; n < this->rooms[i]->adjacencies.size(); n++) {
                 for (size_t k = 0; k < this->rooms.size(); k++) {
-                    if (this->rooms[i]->prevs[p] == this->rooms[k]) {
-                        if (k == 0) std::cout << "V ";
-                        else if (k == this->rooms.size() - 1) std::cout << "D ";
-                        else std::cout << "S" << k << " ";
-                        break;
-                    }
-                }
-            }
-        }
-
-        std::cout << " | Nexts: ";
-        if (this->rooms[i]->nexts.empty()) {
-            std::cout << "None";
-        } else {
-            for (size_t n = 0; n < this->rooms[i]->nexts.size(); n++) {
-                for (size_t k = 0; k < this->rooms.size(); k++) {
-                    if (this->rooms[i]->nexts[n] == this->rooms[k]) {
+                    if (this->rooms[i]->adjacencies[n] == this->rooms[k]) {
                         if (k == 0) std::cout << "V ";
                         else if (k == this->rooms.size() - 1) std::cout << "D ";
                         else std::cout << "S" << k << " ";

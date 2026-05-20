@@ -17,14 +17,12 @@ class Room
 private:
     short size;
     std::vector<Ant*> ants;
-    std::vector<Room*> prevs;
-    std::vector<Room*> nexts;
+    std::vector<Room*> adjacencies;
 
 public:
     Room(short size);
     ~Room();
-    void addToNexts(Room* room);
-    void addToPrevs(Room* room);
+    void addToAdjacencies(Room* room);
     void addAnt(Ant* ant);
     Ant extractAnt();
 };
