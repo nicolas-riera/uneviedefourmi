@@ -1,5 +1,17 @@
 #include <vector>
 
+struct AStarAlgo
+{   
+    Room* room_ptr; // 8 oct
+    int g_score {0}; // 4 oct instead of short 2 oct that would lead to padding
+    int f_score {0};  
+    bool operator>(const AStarAlgo& second_node) const
+    {
+        return f_score > second_node.f_score;
+    }
+};
+
+
 class Ant
 {
 private:

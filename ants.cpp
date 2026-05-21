@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdexcept> //for std::out_of_range except
+#include <queue>
 #include "ants.hpp"
 
 short Ant::counter = 0;
@@ -167,4 +169,26 @@ void Anthill::printDebug() {
 
         std::cout << std::endl;
     }
+
+
+    struct Dijkstra
+    {
+        Room* roomptr {nullptr};
+        int cost_step {0};
+
+        bool operator>(const Dijkstra& next_step)const
+        {
+            return cost_step > next_step.cost_step;
+        }
+    };
+
+    struct SearchUtils{
+        /*TODO*/
+    };
+
+    std::vector<Room*> find_path_dijkstra(const std::vector<Room*>& all_rooms) //std::vector<Room*> this->rooms
+    {
+        
+    }
+    
 }
