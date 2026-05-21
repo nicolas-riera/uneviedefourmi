@@ -25,7 +25,6 @@ void Room::addAnt(Ant* ant){
 };
 
 Ant Room::extractAnt(){
-    // To complete
     //check if room is empty for safety
     if (ants.empty())
     {
