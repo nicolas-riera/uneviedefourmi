@@ -48,5 +48,4 @@ public:
     ~Anthill();
     void initAnthill(std::vector<std::vector<short>> roomLinking, std::vector<short> roomSizes, short antAmount);
     void run();
-    void printDebug();
 };
