@@ -1,3 +1,7 @@
+.vscode
+bin
+output.txt
+
 # Prerequisites
 *.d
 
