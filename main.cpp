@@ -1,12 +1,12 @@
 #include <iostream>
-#include <limits>
+#include <fstream>
 #include "ants.hpp"
 
-void WaitNext() {
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
 int main(){
+
+    std::ofstream out("output.txt");
+    std::streambuf* coutbuf = std::cout.rdbuf();
+    std::cout.rdbuf(out.rdbuf());
 
     // Anthill 0
 
@@ -31,8 +31,6 @@ int main(){
 
     anthill0->run();
 
-    WaitNext();
-
     delete anthill0;
 
     // Anthill 1
@@ -56,8 +54,6 @@ int main(){
 
     anthill1->run();
 
-    WaitNext();
-
     delete anthill1;
 
     // Anthill 2
@@ -80,8 +76,6 @@ int main(){
     anthill2->initAnthill(roomLinking2, roomSizes2, antAmount2);
 
     anthill2->run();
-
-    WaitNext();
 
     delete anthill2;
 
@@ -107,8 +101,6 @@ int main(){
     anthill3->initAnthill(roomLinking3, roomSizes3, antAmount3);
 
     anthill3->run();
-
-    WaitNext();
 
     delete anthill3;
 
@@ -137,8 +129,6 @@ int main(){
     anthill4->initAnthill(roomLinking4, roomSizes4, antAmount4);
 
     anthill4->run();
-
-    WaitNext();
 
     delete anthill4;
 
@@ -176,8 +166,6 @@ int main(){
 
     anthill5->run();
 
-    WaitNext();
-
     delete anthill5;
 
     // Anthill '3D'
@@ -208,8 +196,6 @@ int main(){
     anthill3d->initAnthill(roomLinking3d, roomSizes3d, antAmount3d);
 
     anthill3d->run();
-
-    WaitNext();
 
     delete anthill3d;
 
@@ -254,8 +240,6 @@ int main(){
 
     anthillAtAnt->run();
 
-    WaitNext();
-
     delete anthillAtAnt;
 
     // Anthill 'de la muerte'
@@ -288,9 +272,9 @@ int main(){
 
     anthillMuerte->run();
 
-    WaitNext();
-
     delete anthillMuerte;
+
+    std::cout.rdbuf(coutbuf);
 
     return 0;
 }
