@@ -1,7 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include "ants.hpp"
 
 int main(){
+
+    std::ofstream out("output.txt");
+    std::streambuf* coutbuf = std::cout.rdbuf();
+    std::cout.rdbuf(out.rdbuf());
 
     // Anthill 0
 
@@ -268,6 +273,8 @@ int main(){
     anthillMuerte->run();
 
     delete anthillMuerte;
+
+    std::cout.rdbuf(coutbuf);
 
     return 0;
 }
