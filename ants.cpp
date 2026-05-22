@@ -50,25 +50,45 @@ Ant* Room::extractAnt(){
 Room* Room::findPath(Room* target){
     std::vector<Room*> visited;
     visited.push_back(this);
-    std::vector<Room*> path;
-    this->dfs(visited, path, target);
-    return *path.begin();
+    std::vector<std::vector<Room*>> paths;
+    std::vector<Room*> firstPath;
+    int pathIndex = 0;
+    paths.push_back(firstPath);
+    this->dfs(visited, paths, pathIndex, target);
+    return paths[0][0];
 };
 
-void Room::dfs(std::vector<Room*> &visited, std::vector<Room*> &path, Room* &target){
+void Room::dfs(std::vector<Room*> &visited, std::vector<std::vector<Room*>> &paths, int &pathIndex, Room* &target){
+    bool roomsLeft = false;
     for (Room* adjacency: this->adjacencies){
         std::cout << "Room: " << this->name << " loop " << " Adjacency->name: " << adjacency->name << "\n";
         if (adjacency == target){
+            roomsLeft = true;
             std::cout << "Path found!" << std::endl;
-            path.push_back(adjacency);
+            paths[pathIndex].push_back(adjacency);
+            std::cout << "Path: ";
+            for (Room* step: paths[pathIndex]){
+                std::cout << step->getName() << " ";
+            }
+            std::cout << "\n";
+            ++pathIndex;
+            std::vector<Room*> otherPath;
+            paths.push_back(otherPath);
         } else if (std::find(visited.begin(),visited.end(), adjacency) != visited.end()) {
                 std::cout << adjacency->name << " already visited." << "\n";
         } else {
+            roomsLeft = true;
             visited.push_back(adjacency);
-            path.push_back(adjacency);
+            paths[pathIndex].push_back(adjacency);
             std::cout << adjacency->name << "\n";
-            adjacency->dfs(visited, path, target);
+            adjacency->dfs(visited, paths, pathIndex, target);
         }  
+    }
+    if (!roomsLeft){
+        auto it = std::find(paths[pathIndex].begin(),paths[pathIndex].end(), this);
+        if(it != paths[pathIndex].end()){
+            paths[pathIndex].erase(it);
+        }
     }
 };
 
@@ -142,7 +162,7 @@ void Anthill::run(){
     for(auto it = this->rooms.rbegin(); it != this->rooms.rend() ; ++it){
         Room* room = *it;
         if (!room->ants.empty()){
-            Room* nextRoom = room->findPath(*(rooms.end()-1));
+            Room* nextRoom = room->findPath(rooms.back());
             std::cout << "Next room is: " << nextRoom->getName() << "\n";
             for (auto antIt = room->ants.rbegin(); antIt != room->ants.rend(); ++antIt){
                 Ant* lastAnt = *antIt;

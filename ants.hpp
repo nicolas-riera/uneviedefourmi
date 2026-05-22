@@ -28,7 +28,7 @@ public:
     void addToAdjacencies(Room* room);
     void addAnt(Ant* ant);
     Ant* extractAnt();
-    void dfs(std::vector<Room*> &visited, std::vector<Room*> &path, Room* &target);
+    void dfs(std::vector<Room*> &visited, std::vector<std::vector<Room*>> &paths, int &pathIndex, Room* &target);
     Room* findPath(Room* target);
 };
 
