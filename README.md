@@ -34,4 +34,4 @@ This project demonstrates how a classic graph traversal algorithm like DFS can b
 
 By leveraging object-oriented design in C++ and a virtual tracking system, the engine ensures optimal ant distribution without structural collisions, keeping the simulation loop clean and decoupled from the parsing logic.
 
-<small>This project has been realised by [Nicolas](https://github.com/nicolas-riera/), [Arthur](https://github.com/arthur-georget) and [Hugo](https://github.com/hugo-belaloui).</small>
+This project has been realised by [Nicolas](https://github.com/nicolas-riera/), [Arthur](https://github.com/arthur-georget) and [Hugo](https://github.com/hugo-belaloui).
