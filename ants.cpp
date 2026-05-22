@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "ants.hpp"
 
 short Ant::counter = 0;
@@ -14,10 +15,13 @@ short Ant::getAntId(){
     return this->antId;
 };
 
-Room::Room(short size){
-    this->size = size;
+Room::Room(short size, std::string name): size(size), name(name){
     std::vector<Ant*> newAnts;
     this->ants = newAnts;
+};
+
+std::string Room::getName(){
+    return this->name;
 };
 
 void Room::addToAdjacencies(Room* room){
@@ -41,6 +45,31 @@ Ant* Room::extractAnt(){
     ants.pop_back();
     //return the value of the extracted ant
     return extractedAnt;
+};
+
+Room* Room::findPath(Room* target){
+    std::vector<Room*> visited;
+    visited.push_back(this);
+    std::vector<Room*> path;
+    this->dfs(visited, path, target);
+    return *path.begin();
+};
+
+void Room::dfs(std::vector<Room*> &visited, std::vector<Room*> &path, Room* &target){
+    for (Room* adjacency: this->adjacencies){
+        std::cout << "Room: " << this->name << " loop " << " Adjacency->name: " << adjacency->name << "\n";
+        if (adjacency == target){
+            std::cout << "Path found!" << std::endl;
+            path.push_back(adjacency);
+        } else if (std::find(visited.begin(),visited.end(), adjacency) != visited.end()) {
+                std::cout << adjacency->name << " already visited." << "\n";
+        } else {
+            visited.push_back(adjacency);
+            path.push_back(adjacency);
+            std::cout << adjacency->name << "\n";
+            adjacency->dfs(visited, path, target);
+        }  
+    }
 };
 
 Room::~Room(){
@@ -72,7 +101,7 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
         Room* room;
         if (i == 0) {
             // V room
-            room = new Room(roomSizes[i]);
+            room = new Room(roomSizes[i],"V");
             // Ants creation
             room->ants.reserve(antAmount);
             for (size_t j = 0; j < antAmount; j++)
@@ -82,10 +111,10 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
             }
         } else if (i == roomSizes.size()-1) {
             // D room
-            room = new Room(roomSizes[i]);
+            room = new Room(roomSizes[i],"D");
         } else {
             // regular rooms
-            room = new Room(roomSizes[i]);
+            room = new Room(roomSizes[i],"S"+std::to_string(i));
         }
         this->rooms.push_back(room);
     }
@@ -104,7 +133,7 @@ void Anthill::initAnthill(std::vector<std::vector<short>> roomLinking, std::vect
         }
     }
     
-    this->printDebug();
+    //this->printDebug();
     
 };
 
@@ -113,12 +142,14 @@ void Anthill::run(){
     for(auto it = this->rooms.rbegin(); it != this->rooms.rend() ; ++it){
         Room* room = *it;
         if (!room->ants.empty()){
+            Room* nextRoom = room->findPath(*(rooms.end()-1));
+            std::cout << "Next room is: " << nextRoom->getName() << "\n";
             for (auto antIt = room->ants.rbegin(); antIt != room->ants.rend(); ++antIt){
                 Ant* lastAnt = *antIt;
                 if (lastAnt){
-                    std::cout << lastAnt->getAntId() << std::endl;
-                    // Room* targetRoom = lastAnt->findPath();
-                    // if(targetRoom) {
+                    std::cout << lastAnt->getAntId() << "\n";
+                    // Room* nextRoom = lastAnt->findPath();
+                    // if(nextRoom) {
                     //      Ant* travellingAnt = room->extractAnt();
                     //      targetRoom->addToAnts(travellingAnt);
                     // }

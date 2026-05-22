@@ -17,15 +17,19 @@ class Room
     friend class Anthill;
 private:
     short size;
+    std::string name;
     std::vector<Ant*> ants;
     std::vector<Room*> adjacencies;
 
 public:
-    Room(short size);
+    Room(short size, std::string name);
     ~Room();
+    std::string getName();
     void addToAdjacencies(Room* room);
     void addAnt(Ant* ant);
     Ant* extractAnt();
+    void dfs(std::vector<Room*> &visited, std::vector<Room*> &path, Room* &target);
+    Room* findPath(Room* target);
 };
 
 class Anthill
