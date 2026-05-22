@@ -1,4 +1,7 @@
+#include <iostream>
+#include <algorithm>
 #include <vector>
+#include <memory>
 
 class Ant
 {
@@ -18,7 +21,7 @@ class Room
 private:
     short size;
     std::string name;
-    std::vector<Ant*> ants;
+    std::vector<std::unique_ptr<Ant>> ants;
     std::vector<Room*> adjacencies;
 
 public:
@@ -26,9 +29,9 @@ public:
     ~Room();
     std::string getName();
     void addToAdjacencies(Room* room);
-    void addAnt(Ant* ant);
-    Ant* extractAnt();
-    void dfs(std::vector<Room*> &visited, std::vector<std::vector<Room*>> &paths, int &pathIndex, Room* &target);
+    void addAnt(std::unique_ptr<Ant> ant);
+    std::unique_ptr<Ant> extractAnt();
+    void dfs(std::vector<Room*> &visited, std::vector<std::vector<Room*>> &paths, int &pathIndex, const Room* target);
     Room* findPath(Room* target);
 };
 
@@ -38,7 +41,7 @@ private:
     short antAmount;
     std::vector<short> roomSizes;
     std::vector<std::vector<short>> roomLinking;
-    std::vector<Room*> rooms;
+    std::vector<std::unique_ptr<Room>> rooms;
     int stepCounter;
 
 public:
